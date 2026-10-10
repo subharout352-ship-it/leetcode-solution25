@@ -1,0 +1,25 @@
+
+class Solution(object):
+    def lengthLongestPath(self, input):
+        """
+        :type input: str
+        :rtype: int
+        """
+        max_length = 0
+        path_lengths = {0: 0}
+
+        for line in input.split('\n'):
+            depth = line.count('\t')
+            name = line[depth:]
+
+            if '.' in name:
+                max_length = max(
+                    max_length,
+                    path_lengths[depth] + len(name)
+                )
+            else:
+                path_lengths[depth + 1] = (
+                    path_lengths[depth] + len(name) + 1
+                )
+
+        return max_length
